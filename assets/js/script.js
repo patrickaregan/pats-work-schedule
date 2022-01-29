@@ -1,19 +1,23 @@
-
+// get current date and hour
 var currentDate = moment().format("dddd, MMMM Do");
 var currentHour = moment().format("H");
 console.log("Current Hour: " + currentHour);
 
+// display the current date
 $("#currentDay").text(currentDate);
 
+// function to build the time blocks
 var buildTimeBlocks = function(hour) {
 
-    console.log("inside buildTimeBlocks and hour is: " + hour);
-
+    // ******************************
     // create the row
+    // ******************************
     var rowEl = $("<div>");
     rowEl.addClass("row no-gutters");
 
+    // ******************************
     // create column 1
+    // ******************************
     var col1El = $("<div>");
     col1El.addClass("col-sm-12 col-md-1 col-lg-1");
     // create column 1 content
@@ -42,7 +46,9 @@ var buildTimeBlocks = function(hour) {
     // add column 1 to row
     rowEl.append(col1El);
 
+    // ******************************
     // create column 2
+    // ******************************
     var col2El = $("<div>");
     col2El.addClass("col-sm-12 col-md-10 col-lg-10");
     // create column 2 content
@@ -62,7 +68,9 @@ var buildTimeBlocks = function(hour) {
     // add column 2 to row
     rowEl.append(col2El);
 
+    // ******************************
     // create column 3
+    // ******************************
     var col3El = $("<div>");
     col3El.addClass("col-sm-12 col-md-1 col-lg-1");
     // create column 3 content
@@ -74,10 +82,28 @@ var buildTimeBlocks = function(hour) {
     // add column 2 to row
     rowEl.append(col3El);
 
+    // ******************************
     // add row to container
+    // ******************************
     $(".container").append(rowEl);
 }
 
+// handle button clicks
+$(".container").on("click", "button", function() {
+    // get the button clicked
+    var buttonClicked = $(this).attr("id");
+    // use split method to extract the hour from the button id
+    var hourArr = buttonClicked.split("save");
+    // append the hour to the text 'hour' to match the text areas
+    var hourBox = "hour" + hourArr[1];
+    // log values
+    console.log("Button clicked: " + buttonClicked);
+    console.log("Text box id: " + hourBox);
+    console.log("Text box value: " + $("#" + hourBox).val());
+    // store event data in local storage
+})
+
+// build time blocks for normal working hours
 for (var i = 9; i < 18; i++) {
     buildTimeBlocks(i);        
 }

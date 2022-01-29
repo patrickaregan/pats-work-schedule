@@ -61,6 +61,24 @@ textarea{
   transition: all .3s ease-in-out;
 }
 
+.past {
+  background-color: #d3d3d3;
+  color: white;
+}
+
+.present {
+  background-color: #ff6961;
+  color: white;
+}
+
+.future {
+  background-color: #77dd77;
+  color: white;
+}
+
+
+
+
 
 .xdescription{
   white-space: pre-wrap;
@@ -83,20 +101,7 @@ textarea{
   border-top: 1px dashed #000000;
 }
 
-.past {
-  background-color: #d3d3d3;
-  color: white;
-}
 
-.present {
-  background-color: #ff6961;
-  color: white;
-}
-
-.future {
-  background-color: #77dd77;
-  color: white;
-}
 
 .xsaveBtn {
   border-left: 1px solid black;
