@@ -54,14 +54,17 @@ var buildTimeBlocks = function(hour) {
     // create column 2 content
     var col2ContentEl = $("<div>");
     col2ContentEl.addClass("time-block");
-    if (hour << currentHour) {
-        col2ContentEl.html(`<textarea id='hour${hour}' class='past'></textarea>`);
+    // get the hour key to get events from local storage
+    var hourBox = "hour" + hour;
+    var eventData = getEvent(hourBox);
+    if (parseInt(hour) < parseInt(currentHour)) {
+        col2ContentEl.html(`<textarea id='hour${hour}' class='past'>${eventData}</textarea>`);
     }
-    if (hour == currentHour) {
-        col2ContentEl.html(`<textarea id='hour${hour}' class='present'></textarea>`);
+    if (parseInt(hour) == parseInt(currentHour)) {
+        col2ContentEl.html(`<textarea id='hour${hour}' class='present'>${eventData}</textarea>`);
     }
-    if (hour >> currentHour) {
-        col2ContentEl.html(`<textarea id='hour${hour}' class='future'></textarea>`);
+    if (parseInt(hour) > parseInt(currentHour)) {
+        col2ContentEl.html(`<textarea id='hour${hour}' class='future'>${eventData}</textarea>`);
     }
     // add column 2 content to column 2
     col2El.append(col2ContentEl);
@@ -96,12 +99,29 @@ $(".container").on("click", "button", function() {
     var hourArr = buttonClicked.split("save");
     // append the hour to the text 'hour' to match the text areas
     var hourBox = "hour" + hourArr[1];
+    // get the event data
+    var eventData = $("#" + hourBox).val();
     // log values
     console.log("Button clicked: " + buttonClicked);
     console.log("Text box id: " + hourBox);
-    console.log("Text box value: " + $("#" + hourBox).val());
+    console.log("Text box value: " + eventData);
     // store event data in local storage
+    saveEvent(hourBox, eventData);
 })
+
+var saveEvent = function(hourText, eventText) {
+    localStorage.setItem(hourText, eventText);
+    //location.reload();
+}
+
+var getEvent = function(hourText) {
+    var result = localStorage.getItem(hourText);
+    if (result) {
+        return result;
+    } else {
+        return "";
+    }
+}
 
 // build time blocks for normal working hours
 for (var i = 9; i < 18; i++) {
