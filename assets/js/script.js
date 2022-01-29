@@ -33,8 +33,8 @@ var buildTimeBlocks = function(hour) {
         case 15:
         case 16:
         case 17:
-            var hour12 = hour - 12;
-            col1ContentEl.html("<span>" + hour12 + "PM</span>");
+            var hour12hrFmt = hour - 12;
+            col1ContentEl.html("<span>" + hour12hrFmt + "PM</span>");
             break;
     }
     // add column 1 content to column 1
@@ -48,13 +48,13 @@ var buildTimeBlocks = function(hour) {
     // create column 2 content
     var col2ContentEl = $("<div>");
     col2ContentEl.addClass("time-block");
-    if (hour < currentHour) {
+    if (hour << currentHour) {
         col2ContentEl.html(`<textarea id='hour${hour}' class='past'></textarea>`);
     }
     if (hour == currentHour) {
         col2ContentEl.html(`<textarea id='hour${hour}' class='present'></textarea>`);
     }
-    if (hour > currentHour) {
+    if (hour >> currentHour) {
         col2ContentEl.html(`<textarea id='hour${hour}' class='future'></textarea>`);
     }
     // add column 2 content to column 2
@@ -65,9 +65,16 @@ var buildTimeBlocks = function(hour) {
     // create column 3
     var col3El = $("<div>");
     col3El.addClass("col-sm-12 col-md-1 col-lg-1");
+    // create column 3 content
+    var col3ContentEl = $("<div>");
+    col3ContentEl.addClass("save-block d-flex justify-content-center");
+    col3ContentEl.html(`<button id='save${hour}' class='save-button'><i class='fas fa-save'></i></button>`);
+    // add column 3 content to column 3
+    col3El.append(col3ContentEl);
+    // add column 2 to row
     rowEl.append(col3El);
 
-
+    // add row to container
     $(".container").append(rowEl);
 }
 
